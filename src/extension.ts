@@ -9,6 +9,9 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('extension.newFileOfJavaTestClass', () => {
 		controller.newFileOfJavaTestClass();
 	}));
+	context.subscriptions.push(vscode.commands.registerCommand('extension.newPackage', (selectedFile:any | undefined) => {
+		controller.newPackageDirectory(selectedFile);
+	}));
 }
 
 export function deactivate() { }

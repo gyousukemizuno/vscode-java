@@ -16,20 +16,34 @@
   ],
   "activationEvents": [
     "onCommand:extension.switchJavaPairClass",
-    "onCommand:extension.newFileOfJavaTestClass"
+    "onCommand:extension.newFileOfJavaTestClass",
+    "onCommand:extension.newPackage"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "extension.switchJavaPairClass",
-        "title": "Switch Java Pair Class"
+        "title": "Java: Switch Java Pair Class"
       },
       {
         "command": "extension.newFileOfJavaTestClass",
-        "title": "New File of Java Pair Test Class"
+        "title": "Java: New File of Java Pair Test Class"
+      },
+      {
+        "command": "extension.newPackage",
+        "title": "Java: New Package"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.newPackage",
+          "group": "Java",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
