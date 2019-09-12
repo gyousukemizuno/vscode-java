@@ -1,3 +1,4 @@
 # vscode-java README
 
-test
+vsce package
+code --install-extension xxx.vsix
