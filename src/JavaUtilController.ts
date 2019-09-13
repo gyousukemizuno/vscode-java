@@ -102,9 +102,10 @@ public class ${className} {
         if (!activeTextEditor) {
           return;
         }
-        rootDir = path.basename(activeTextEditor.document.fileName);
+        rootDir = path.dirname(activeTextEditor.document.fileName);
       }
       const packagePath = path.join(rootDir, packageName.replace(/\./g, '/'), '/');
+      console.log(packagePath);
       if (!FileUtils.existsSync(packagePath)) {
         FileUtils.mkdirsSync(packagePath);
       }
