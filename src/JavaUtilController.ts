@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { FileUtils } from './FileUtils';
 import { VscodeUtils } from './VscodeUtils';
-import { RSA_NO_PADDING } from 'constants';
 
 export class JavaUtilController {
 
@@ -29,7 +28,7 @@ export class JavaUtilController {
       return;
     }
     const pairClass = this.getPairClass(fileName);
-    if (!fs.existsSync(pairClass)) {
+    if (!FileUtils.existsSync(pairClass)) {
       vscode.window.showInformationMessage('not found pair class. ' + pairClass);
       return;
     }
@@ -74,13 +73,13 @@ public class ${className} {
     if (!FileUtils.isJavaTestFile(pairClass)) {
       return;
     }
-    if (fs.existsSync(pairClass)) {
+    if (FileUtils.existsSync(pairClass)) {
       vscode.window.showInformationMessage('exists pair class.');
       return;
     }
     const parentDir = FileUtils.getParent(pairClass);
-    if (parentDir !== undefined && !fs.existsSync(parentDir)) {
-      fs.mkdirSync(parentDir, { recursive: true });
+    if (FileUtils.existsSync(parentDir)) {
+      FileUtils.mkdirsSync(parentDir);
     }
     fs.writeFileSync(pairClass, this.makeTestClass(pairClass));
     VscodeUtils.showTextDocument(pairClass);
@@ -106,8 +105,8 @@ public class ${className} {
         rootDir = path.basename(activeTextEditor.document.fileName);
       }
       const packagePath = path.join(rootDir, packageName.replace(/\./g, '/'), '/');
-      if (!fs.existsSync(packagePath)) {
-        fs.mkdirSync(packagePath, { recursive: true });
+      if (!FileUtils.existsSync(packagePath)) {
+        FileUtils.mkdirsSync(packagePath);
       }
     });
   }

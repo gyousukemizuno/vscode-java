@@ -1,3 +1,6 @@
+import * as path from 'path';
+import * as fs from 'fs';
+
 export class FileUtils {
 
   public static getExtension(fileName: string): string | undefined {
@@ -12,7 +15,7 @@ export class FileUtils {
     return this.getExtension(fileName) === 'java';
   }
 
-  public static isJavaTestFile(fileName: string):boolean {
+  public static isJavaTestFile(fileName: string): boolean {
     return fileName.lastIndexOf("Test.java") !== -1;
   }
 
@@ -22,5 +25,22 @@ export class FileUtils {
       return undefined;
     }
     return fileName.substring(0, index);
+  }
+
+  public static mkdirsSync(dirname: string | undefined): void {
+    if (dirname === undefined) {
+      return;
+    }
+    let dir = '/';
+    path.normalize(dirname).split('/').forEach((basename) => {
+      dir = path.join(dir, basename);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+    });
+  }
+
+  public static existsSync(fileName: string | undefined): boolean {
+    return fileName !== undefined && fs.existsSync(fileName);
   }
 }
