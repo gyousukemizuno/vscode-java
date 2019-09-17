@@ -1,6 +1,6 @@
 {
-  "name": "vscode-java",
-  "displayName": "vscode-java",
+  "name": "vscode-java-tools",
+  "displayName": "Java Tools",
   "description": "",
   "version": "0.0.1",
   "publisher": "mizuno-gyousuke",
@@ -15,7 +15,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.switchJavaPairClass",
+    "onCommand:extension.switchPairClass",
     "onCommand:extension.newTestClass",
     "onCommand:extension.newPackage",
     "onCommand:extension.newClass"

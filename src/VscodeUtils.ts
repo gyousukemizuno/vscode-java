@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 import * as vscode from 'vscode';
 
 export class VscodeUtils {

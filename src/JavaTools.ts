@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: GPL-2.0
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { FileUtils } from './FileUtils';
 import { VscodeUtils } from './VscodeUtils';
 
-export class JavaUtilController {
+export class JavaTools {
 
   constructor() {
   }
@@ -32,7 +33,7 @@ export class JavaUtilController {
       vscode.window.showInformationMessage('not found pair class. ' + pairClass);
       return;
     }
-    VscodeUtils.showTextDocument(pairClass);
+    await VscodeUtils.showTextDocument(pairClass);
   }
 
   private makeTestClass(pairClass: string): string {
@@ -89,7 +90,7 @@ public ${type} ${className} {
       return;
     }
     if (FileUtils.existsSync(pairClass)) {
-      vscode.window.showInformationMessage('exists pair class.');
+      await VscodeUtils.showTextDocument(pairClass);
       return;
     }
     const parentDir = FileUtils.getParent(pairClass);
@@ -97,7 +98,7 @@ public ${type} ${className} {
       FileUtils.mkdirsSync(parentDir);
     }
     fs.writeFileSync(pairClass, this.makeTestClass(pairClass));
-    VscodeUtils.showTextDocument(pairClass);
+    await VscodeUtils.showTextDocument(pairClass);
   }
 
   private getParent(selectedDir: string | undefined): string | undefined {

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 import * as path from 'path';
 import * as fs from 'fs';
 

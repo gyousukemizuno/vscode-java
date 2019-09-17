@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { JavaUtilController } from './JavaUtilController';
+import { JavaTools } from './JavaTools';
 
 export function activate(context: vscode.ExtensionContext) {
-	const controller = new JavaUtilController();
+	const controller = new JavaTools();
 	context.subscriptions.push(vscode.commands.registerCommand('extension.switchPairClass', () => {
 		controller.openPairClass();
 	}));
