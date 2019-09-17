@@ -3,14 +3,17 @@ import { JavaUtilController } from './JavaUtilController';
 
 export function activate(context: vscode.ExtensionContext) {
 	const controller = new JavaUtilController();
-	context.subscriptions.push(vscode.commands.registerCommand('extension.switchJavaPairClass', () => {
+	context.subscriptions.push(vscode.commands.registerCommand('extension.switchPairClass', () => {
 		controller.openPairClass();
 	}));
-	context.subscriptions.push(vscode.commands.registerCommand('extension.newFileOfJavaTestClass', () => {
-		controller.newFileOfJavaTestClass();
+	context.subscriptions.push(vscode.commands.registerCommand('extension.newTestClass', () => {
+		controller.newTestClass();
 	}));
 	context.subscriptions.push(vscode.commands.registerCommand('extension.newPackage', (selectedFile:any | undefined) => {
-		controller.newPackageDirectory(selectedFile);
+		controller.newPackage(selectedFile);
+	}));
+	context.subscriptions.push(vscode.commands.registerCommand('extension.newClass', (selectedFile:any | undefined) => {
+		controller.newClass(selectedFile);
 	}));
 }
 

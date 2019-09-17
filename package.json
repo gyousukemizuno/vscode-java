@@ -16,29 +16,39 @@
   ],
   "activationEvents": [
     "onCommand:extension.switchJavaPairClass",
-    "onCommand:extension.newFileOfJavaTestClass",
-    "onCommand:extension.newPackage"
+    "onCommand:extension.newTestClass",
+    "onCommand:extension.newPackage",
+    "onCommand:extension.newClass"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.switchJavaPairClass",
-        "title": "Java: Switch Java Pair Class"
+        "command": "extension.switchPairClass",
+        "title": "Java: Switch Pair Class"
       },
       {
-        "command": "extension.newFileOfJavaTestClass",
-        "title": "Java: New File of Java Pair Test Class"
+        "command": "extension.newTestClass",
+        "title": "Java: New Pair Test Class"
       },
       {
         "command": "extension.newPackage",
         "title": "Java: New Package"
+      },
+      {
+        "command": "extension.newClass",
+        "title": "Java: New Class"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "extension.newPackage",
+          "group": "Java",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "extension.newClass",
           "group": "Java",
           "when": "explorerResourceIsFolder"
         }
