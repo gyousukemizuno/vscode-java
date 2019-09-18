@@ -33,7 +33,7 @@ export class JavaTools {
       vscode.window.showInformationMessage('not found pair class. ' + pairClass);
       return;
     }
-    await VscodeUtils.showTextDocument(pairClass);
+    VscodeUtils.showTextDocument(pairClass);
   }
 
   private makeTestClass(pairClass: string): string {
@@ -90,7 +90,7 @@ public ${type} ${className} {
       return;
     }
     if (FileUtils.existsSync(pairClass)) {
-      await VscodeUtils.showTextDocument(pairClass);
+      VscodeUtils.showTextDocument(pairClass);
       return;
     }
     const parentDir = FileUtils.getParent(pairClass);
@@ -98,7 +98,7 @@ public ${type} ${className} {
       FileUtils.mkdirsSync(parentDir);
     }
     fs.writeFileSync(pairClass, this.makeTestClass(pairClass));
-    await VscodeUtils.showTextDocument(pairClass);
+    VscodeUtils.showTextDocument(pairClass);
   }
 
   private getParent(selectedDir: string | undefined): string | undefined {
@@ -158,6 +158,6 @@ public ${type} ${className} {
       return;
     }
     fs.writeFileSync(canonicalPath, doc);
-    await VscodeUtils.showTextDocument(canonicalPath);
+    VscodeUtils.showTextDocument(canonicalPath);
   }
 }
