@@ -30,7 +30,16 @@ export class JavaTools {
     }
     const pairClass = this.getPairClass(fileName);
     if (!FileUtils.existsSync(pairClass)) {
-      vscode.window.showInformationMessage('not found pair class. ' + pairClass);
+      //      vscode.window.showInformationMessage('not found pair class. ' + pairClass);
+      const ans = await vscode.window.showInputBox({
+        prompt: "New Pair Class?",
+        placeHolder: "Yes",
+        ignoreFocusOut: true
+      });
+      if (!ans) {
+        return;
+      }
+      this.newTestClass();
       return;
     }
     VscodeUtils.showTextDocument(pairClass);
