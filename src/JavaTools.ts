@@ -38,7 +38,7 @@ export class JavaTools {
 
   private makeTestClass(pairClass: string): string {
     const index = pairClass.lastIndexOf('/');
-    const packageName = pairClass.substring(pairClass.indexOf('/src/test/java/') + 15, index - 1).replace(/\//g, '.');
+    const packageName = pairClass.substring(pairClass.indexOf('/src/test/java/') + 15, index + 1).replace(/\//g, '.');
     const className = pairClass.substring(index + 1, pairClass.lastIndexOf('.'));
     return `
 ${packageName ? `package ${packageName};` : ''}
@@ -132,15 +132,32 @@ public ${type} ${className} {
     }
   }
 
+  private capitaize(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
   async newClass(selectedDir: any | undefined): Promise<void> {
-    const className = await vscode.window.showInputBox({
-      prompt: 'New Class',
-      placeHolder: 'Example: Test',
+    return this.newCompilationUnit(selectedDir, 'class', 'New Class', 'Example: Test');
+  }
+
+  async newInterface(selectedDir: any | undefined): Promise<void> {
+    return this.newCompilationUnit(selectedDir, 'interface', 'New Interface', 'Example: Test');
+  }
+
+  async newEnum(selectedDir: any | undefined): Promise<void> {
+    return this.newCompilationUnit(selectedDir, 'enum', 'New Enum', 'Example: Test');
+  }
+
+  async newCompilationUnit(selectedDir: any | undefined, type: string, prompt: string, placeHolder: string): Promise<void> {
+    let className = await vscode.window.showInputBox({
+      prompt: prompt,
+      placeHolder: placeHolder,
       ignoreFocusOut: true
     });
     if (!className) {
       return;
     }
+    className = this.capitaize(className);
     let rootDir = this.getParent(selectedDir.path);
     if (!rootDir) {
       return;
@@ -153,7 +170,7 @@ public ${type} ${className} {
     if (!fs.existsSync(parentDir)) {
       FileUtils.mkdirsSync(parentDir);
     }
-    const doc = this.makeCompilationUnit('class', canonicalPath);
+    const doc = this.makeCompilationUnit(type, canonicalPath);
     if (!doc) {
       return;
     }

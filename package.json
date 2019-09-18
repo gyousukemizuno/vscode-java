@@ -18,7 +18,9 @@
     "onCommand:extension.switchPairClass",
     "onCommand:extension.newTestClass",
     "onCommand:extension.newPackage",
-    "onCommand:extension.newClass"
+    "onCommand:extension.newClass",
+    "onCommand:extension.newInterface",
+    "onCommand:extension.newEnum"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -38,6 +40,14 @@
       {
         "command": "extension.newClass",
         "title": "Java: New Class"
+      },
+      {
+        "command": "extension.newInterface",
+        "title": "Java: New Interface"
+      },
+      {
+        "command": "extension.newEnum",
+        "title": "Java: New Enum"
       }
     ],
     "menus": {
@@ -49,6 +59,16 @@
         },
         {
           "command": "extension.newClass",
+          "group": "Java",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "extension.newInterface",
+          "group": "Java",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "extension.newEnum",
           "group": "Java",
           "when": "explorerResourceIsFolder"
         }
