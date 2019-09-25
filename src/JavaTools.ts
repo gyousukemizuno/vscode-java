@@ -46,8 +46,8 @@ export class JavaTools {
   }
 
   private makeTestClass(pairClass: string): string {
-    const index = pairClass.lastIndexOf('/');
-    const packageName = pairClass.substring(pairClass.indexOf('/src/test/java/') + 15, index + 1).replace(/\//g, '.');
+    const index = pairClass.lastIndexOf('/');    
+    const packageName = path.normalize(pairClass).substring(pairClass.indexOf('/src/test/java/') + 15, index).replace(/\//g, '.');
     const className = pairClass.substring(index + 1, pairClass.lastIndexOf('.'));
     return `
 ${packageName ? `package ${packageName};` : ''}
@@ -103,7 +103,7 @@ public ${type} ${className} {
       return;
     }
     const parentDir = FileUtils.getParent(pairClass);
-    if (FileUtils.existsSync(parentDir)) {
+    if (!FileUtils.existsSync(parentDir)) {
       FileUtils.mkdirsSync(parentDir);
     }
     fs.writeFileSync(pairClass, this.makeTestClass(pairClass));
