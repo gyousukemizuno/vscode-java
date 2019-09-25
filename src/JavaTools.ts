@@ -22,30 +22,37 @@ export class JavaTools {
   async openPairClass(): Promise<void> {
     const activeTextEditor = vscode.window.activeTextEditor;
     if (!activeTextEditor) {
+      console.warn('Active Text Editor not found.');
       return;
     }
     const fileName = activeTextEditor.document.fileName;
     if (!FileUtils.isJavaFile(fileName)) {
+      console.warn('Not java. ' + fileName);
       return;
     }
     const pairClass = this.getPairClass(fileName);
+    if (!pairClass.endsWith('Test.java')) {
+      if (FileUtils.existsSync(pairClass)) {
+        VscodeUtils.showTextDocument(pairClass);
+      }
+      return;
+    }
     if (!FileUtils.existsSync(pairClass)) {
       const ans = await vscode.window.showInputBox({
         prompt: "New Pair Class?",
         placeHolder: "Yes",
         ignoreFocusOut: true
       });
-      if (!ans) {
+      if (ans === undefined) {
         return;
       }
       this.newTestClass();
-      return;
     }
     VscodeUtils.showTextDocument(pairClass);
   }
 
   private makeTestClass(pairClass: string): string {
-    const index = pairClass.lastIndexOf('/');    
+    const index = pairClass.lastIndexOf('/');
     const packageName = path.normalize(pairClass).substring(pairClass.indexOf('/src/test/java/') + 15, index).replace(/\//g, '.');
     const className = pairClass.substring(index + 1, pairClass.lastIndexOf('.'));
     return `

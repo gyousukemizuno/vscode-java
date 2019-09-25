@@ -20,7 +20,8 @@
     "onCommand:extension.newPackage",
     "onCommand:extension.newClass",
     "onCommand:extension.newInterface",
-    "onCommand:extension.newEnum"
+    "onCommand:extension.newEnum",
+    "onCommand:extension.runTest"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -48,6 +49,10 @@
       {
         "command": "extension.newEnum",
         "title": "Java: New Enum"
+      },
+      {
+        "command": "extension.runTest",
+        "title": "Java: Run Test"
       }
     ],
     "menus": {
@@ -78,7 +83,12 @@
       {
         "command": "extension.switchPairClass",
         "key": "Ctrl + 9",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && resourceLangId == java"
+      },
+      {
+        "command": "extension.runTest",
+        "key": "Ctrl + 0",
+        "when": "editorTextFocus && resourceLangId == java"
       }
     ]
   },

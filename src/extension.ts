@@ -21,6 +21,16 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('extension.newEnum', (selectedFile:any | undefined) => {
 		controller.newEnum(selectedFile);
 	}));
+	context.subscriptions.push(vscode.commands.registerCommand('extension.runTest', (selectedFile:any | undefined) => {
+		const activeTextEditor = vscode.window.activeTextEditor;
+		if (activeTextEditor === undefined) {
+			return;
+		}
+		const currentPosition = activeTextEditor.selection.start;
+		const wordRange = activeTextEditor.document.getWordRangeAtPosition(currentPosition);
+		console.log(wordRange);
+		console.log(activeTextEditor.document.getText(wordRange));
+	}));
 }
 
 export function deactivate() { }
