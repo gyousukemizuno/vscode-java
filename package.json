@@ -73,7 +73,14 @@
           "when": "explorerResourceIsFolder"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "extension.switchPairClass",
+        "key": "Ctrl + 9",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
